@@ -10,7 +10,7 @@ set noerrorbells
 set! security.dialog_enable_delay=0
 
 " プライベートブラウジング
-noremap <C-p> :winopen -private<CR>
+"noremap <C-p> :winopen -private<CR>
 
 " Ctrl+r で再起動
 map <C-r> :restart<CR>
@@ -19,17 +19,17 @@ map R :source ~/_vimperatorrc<CR>
 
 "=======================================================
 
-" h,lに前のタブ,次のタブを割り当てる
-map h <C-PageUp>
-map l <C-PageDown>
+" <C-t>,<C-T>に前のタブ,次のタブを割り当てる
+map <C-t> <C-PageUp>
+map <C-T> <C-PageDown>
 
 " H/Lに左右を割り当てる
 map H <Left>
 map L <Right>
 
-" Ctrl+h/Ctrl+lに戻る/進むを割り当てる
-map <C-h> <A-Left>
-map <C-l> <A-Right>
+" h/lに戻る/進むを割り当てる
+map h <A-Left>
+map l <A-Right>
 
 " j,kによる上下スクロールの移動量を5倍に設定
 noremap j 5<C-e>
@@ -102,10 +102,6 @@ noremap <C-q> :clearly<CR>
 command clip javascript evernote_doAction()
 noremap <C-e> :clip<CR>
 
-" DNS Flusher(アドオン前提。動作確認：3.1.1)
-command flush javascript dnsFlusher.refreshdns()
-noremap <C-d> :flush<CR>
-
 " Google Transrator(アドオン前提。動作確認：2.1.0.3m)
 command transrate javascript zol_bod_google_translator.ToolBarTranslatorClick()
 noremap <C-y> :transrate<CR>
@@ -149,12 +145,12 @@ map MN :fms off<CR>
 "=======================================================
 
 " multi_requester.js
-nmap K <C-c>:mr<Space>wikipedia-ja<Space><C-v><CR>
-vmap K <C-c><Esc><Esc>:mr<Space>wikipedia-ja<Space><C-v><CR>
-nmap A <C-c>:mr<Space>alc<Space><C-v><CR>
-vmap A <C-c><Esc><Esc>:mr<Space>alc<Space><C-v><CR>
-nmap T <C-c>:mr<Space>googletrans-ja<Space><C-v><CR>
-vmap T <C-c><Esc><Esc>:mr<Space>googletrans-ja<Space><C-v><CR>
+"nmap K <C-c>:mr<Space>wikipedia-ja<Space><C-v><CR>
+"vmap K <C-c><Esc><Esc>:mr<Space>wikipedia-ja<Space><C-v><CR>
+"nmap A <C-c>:mr<Space>alc<Space><C-v><CR>
+"vmap A <C-c><Esc><Esc>:mr<Space>alc<Space><C-v><CR>
+"nmap T <C-c>:mr<Space>googletrans-ja<Space><C-v><CR>
+"vmap T <C-c><Esc><Esc>:mr<Space>googletrans-ja<Space><C-v><CR>
 
 "=======================================================
 
