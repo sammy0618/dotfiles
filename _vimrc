@@ -12,7 +12,7 @@ set shortmess+=I
 
 filetype off
 
-set rtp+=~/dotfiles/vimfiles/vundle.git
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
