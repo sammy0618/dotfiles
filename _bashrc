@@ -1,2 +1,5 @@
-set -o vi
+export LSCOLORS=gxfxcxdxbxegedabagacad
 
+alias ls='ls -lAG'
+
+set -o vi
