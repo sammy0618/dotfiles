@@ -9,6 +9,7 @@ filetype indent on
 filetype plugin on
 set number
 set shortmess+=I
+set clipboard=unnamed
 
 filetype off
 
@@ -16,10 +17,16 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/unite-outline'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-quickrun'
 Bundle 'kana/vim-submode'
 Bundle 'itchyny/lightline.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'altercation/vim-colors-solarized'
+
+let g:unite_split_rule = 'botright'
+noremap <Space>o <ESC>:Unite -vertical -winwidth=40 outline<Return>
 
 filetype plugin indent on
 
@@ -50,6 +57,7 @@ nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
 nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
 nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
@@ -60,3 +68,6 @@ call submode#map('bufmove', 'n', '', '<', '<C-w><')
 call submode#map('bufmove', 'n', '', '+', '<C-w>+')
 call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 
+"syntax enable
+set background=dark
+colorscheme solarized
