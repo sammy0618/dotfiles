@@ -1,0 +1,7 @@
+# find
+find ./ -daystart -ctime +2
+find ./ -daystart -ctime -2
+
+# date
+date +%Y%m%d
+
