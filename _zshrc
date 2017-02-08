@@ -154,11 +154,22 @@ case ${OSTYPE} in
     darwin*)
         #Mac用の設定
         export CLICOLOR=1
-        alias ls='ls -G -F'
+        alias ls='ls -al -G -F'
         ;;
     linux*)
         #Linux用の設定
-        alias ls='ls -F --color=auto'
+       #alias ls='ls -al -F --color=auto'
+        # enable color support of ls and also add handy aliases
+        if [ -x /usr/bin/dircolors ]; then
+            test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+            alias ls='ls -al --color=auto'
+            #alias dir='dir --color=auto'
+            #alias vdir='vdir --color=auto'
+            alias grep='grep --color=auto'
+            alias fgrep='fgrep --color=auto'
+            alias egrep='egrep --color=auto'
+        fi
+
         ;;
 esac
 
@@ -188,9 +199,26 @@ bindkey '^s' peco-snippets
 
 #履歴リスト
 function peco-history-selection() {
-    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
-    CURSOR=$#BUFFER
-    zle reset-prompt
+  ########################################
+  # OS 別の設定
+  case ${OSTYPE} in
+      darwin*)
+          #Mac用の設定
+          BUFFER=`history -n 1 | tail -r | awk '!a[$0]++' | peco`
+          CURSOR=$#BUFFER
+          zle reset-prompt
+          ;;
+      linux*)
+          #Linux用の設定
+          BUFFER=`history -n 1 | tac | awk '!a[$0]++' | peco`
+          CURSOR=$#BUFFER
+          zle reset-prompt
+          ;;
+  esac
+##   BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+#BUFFER=`history -n 1 | eval ${tail_r} | awk '!a[$0]++' | peco`
+#    CURSOR=$#BUFFER
+#    zle reset-prompt
 }
 zle -N peco-history-selection
 bindkey '^r' peco-history-selection

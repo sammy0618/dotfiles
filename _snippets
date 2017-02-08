@@ -1,3 +1,7 @@
+# sshのファイルコピー
+# リモートからローカルにコピー
+scp sammy@192.168.0.81:/home/user/test.txt /local/path
+
 # find
 find ./ -daystart -ctime +2
 find ./ -daystart -ctime -2
