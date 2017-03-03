@@ -1,46 +1,82 @@
+filetype off
+
 set tabstop=2
 set shiftwidth=2
 set expandtab
 set autoindent
-set nocompatible
 syntax on
-filetype on
-filetype indent on
-filetype plugin on
 set number
 set shortmess+=I
 set clipboard=unnamed
+set formatoptions-=ro
 
-filetype off
+let s:dein_dir = expand('~/.vim/dein')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+if !isdirectory(s:dein_repo_dir)
+  execute '!git clone https://github.com/Shougo/dein.vim.git' s:dein_repo_dir
+endif
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/unite-outline'
-Bundle 'thinca/vim-ref'
-Bundle 'thinca/vim-quickrun'
-Bundle 'kana/vim-submode'
-Bundle 'itchyny/lightline.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'vim-scripts/gtags.vim'
-Bundle 'simeji/winresizer'
+execute 'set runtimepath^=' . s:dein_repo_dir
+call dein#begin(s:dein_dir)
+
+call dein#add('Shougo/dein.vim')
+call dein#add('Shougo/vimproc')
+call dein#add('scrooloose/nerdtree')
+call dein#add('jistr/vim-nerdtree-tabs')
+call dein#add('Xuyuanp/nerdtree-git-plugin')
+call dein#add('airblade/vim-gitgutter')
+call dein#add('Shougo/unite.vim')
+call dein#add('altercation/vim-colors-solarized')
+call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/unite-outline')
+call dein#add('thinca/vim-ref')
+call dein#add('thinca/vim-quickrun')
+call dein#add('kana/vim-submode')
+call dein#add('itchyny/lightline.vim')
+call dein#add('altercation/vim-colors-solarized')
+call dein#add('rhysd/accelerated-jk')
+call dein#add('vim-scripts/gtags.vim')
+call dein#add('simeji/winresizer')
+call dein#add('alpaca-tc/alpaca_tags')
+
+"call dein#add('Shougo/neocomplcache')
+"call dein#add('Shougo/neocomplcache-rsense.vim')
+
+call dein#add('Shougo/neocomplete.vim',     { 'on_i': 1 })
+call dein#add('osyo-manga/vim-monster',     { 'on_ft': 'ruby' })
+
+call dein#end()
+
+if dein#check_install()
+  call dein#install()
+endif
 
 let g:unite_split_rule = 'botright'
 noremap <Space>o <ESC>:Unite -vertical -winwidth=40 outline<Return>
 
-filetype plugin indent on
-
 "--------unite ope------------
 let g:unite_split_rule = "rightbelow"
-"let g:unite_split_rule = 'botright'
 let g:unite_source_history_yank_enable =1  "history/yankの有効化
-"nnoremap <silent> ,p :<C-u>Unite history/yank<CR>
-"nnoremap <silent> ,f :<C-u>Unite file_mru<CR>
 
-nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
-nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
+"--------NerdTreeの設定------------
+let NERDTreeShowHidden = 1
+" ファイルが指定されていなければNERD treeを有効にする
+if argc() == 0
+  let g:nerdtree_tabs_open_on_console_startup = 1
+end
+
+"--------lightlineの設定------------
+let g:lightline = {
+      \ 'colorscheme': 'solarized'
+      \ }
+
+"--------j/kによる移動を速くする------------
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
+
+"--------キーマップ------------
+nnoremap ; :
+
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
 noremap <Space>o <ESC>:Unite -vertical -winwidth=40 outline<Return>
 noremap <Space>g :Gtags
@@ -76,6 +112,8 @@ nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
+nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
+nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
 
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
@@ -86,6 +124,25 @@ call submode#map('bufmove', 'n', '', '<', '<C-w><')
 call submode#map('bufmove', 'n', '', '+', '<C-w>+')
 call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 
+"neocomplcache keybind
+inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
+inoremap <expr><C-Tab> pumvisible() ? "\<Up>" : "\<C-Tab>"
+
+"PopUpMenuの色設定
+au VimEnter,ColorScheme * highlight Pmenu ctermfg=62
+au VimEnter,ColorScheme * highlight PmenuSel ctermfg=134
+
 "syntax enable
 set background=dark
 colorscheme solarized
+
+"neocomplete.vim
+let g:neocomplete#enable_at_startup = 1
+
+" vim-monster
+let g:neocomplete#sources#omni#input_patterns = {
+      \  'ruby': '[^. *\t]\.\w*\|\h\w*::'
+      \}
+
+filetype plugin indent on
+

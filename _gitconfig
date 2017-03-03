@@ -1,3 +1,6 @@
+[user]
+	email = sammy0618@gmail.com
+	name = sammy0618
 [diff]
 	tool = vimdiff
 [difftool]
