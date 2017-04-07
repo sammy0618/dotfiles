@@ -2,13 +2,16 @@
 # 環境変数
 export LANG=ja_JP.UTF-8
 
+#rbenvの設定
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 # 色を使用出来るようにする
 autoload -Uz colors
 colors
 
-# emacs 風キーバインドにする
-bindkey -e
+# vim 風キーバインドにする
+bindkey -v
 
 # ヒストリの設定
 HISTFILE=~/.zsh_history
