@@ -38,6 +38,7 @@ call dein#add('rhysd/accelerated-jk')
 call dein#add('vim-scripts/gtags.vim')
 call dein#add('simeji/winresizer')
 call dein#add('alpaca-tc/alpaca_tags')
+call dein#add('Shougo/neoyank.vim')
 
 "call dein#add('Shougo/neocomplcache')
 "call dein#add('Shougo/neocomplcache-rsense.vim')
@@ -54,13 +55,6 @@ endif
 if dein#check_install()
   call dein#install()
 endif
-
-let g:unite_split_rule = 'botright'
-noremap <Space>o <ESC>:Unite -vertical -winwidth=40 outline<Return>
-
-"--------unite ope------------
-let g:unite_split_rule = "rightbelow"
-let g:unite_source_history_yank_enable =1  "history/yankの有効化
 
 "--------NerdTreeの設定------------
 let NERDTreeShowHidden = 1
@@ -82,7 +76,21 @@ nmap k <Plug>(accelerated_jk_gk)
 nnoremap ; :
 
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
-noremap <Space>o <ESC>:Unite -vertical -winwidth=40 outline<Return>
+let g:unite_split_rule = 'botright'
+"Uniteの設定
+"grep
+nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer -no-quit -vertical -keep-focus<CR>
+" unite grepにhw(highway)を使う
+if executable('hw')
+  let g:unite_source_grep_command = 'hw'
+  let g:unite_source_grep_default_opts = '--no-group --no-color'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+"アウトライン
+nnoremap <silent> ,o :<C-u>Unite -vertical -winwidth=40 -no-quit -keep-focus outline<CR>
+"履歴
+nnoremap <silent> ,, :<C-u>Unite -vertical -winwidth=40 -no-quit -keep-focus -default-action=append history/yank<CR>
+
 noremap <Space>g :Gtags
 noremap <Space>l :Gtags -f %<CR>
 noremap <Space>j :GtagsCursor<CR>
@@ -118,14 +126,6 @@ nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
 nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
 nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
-"Unite grepの設定
-nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-" unite grepにhw(highway)を使う
-if executable('hw')
-  let g:unite_source_grep_command = 'hw'
-  let g:unite_source_grep_default_opts = '--no-group --no-color'
-  let g:unite_source_grep_recursive_opt = ''
-endif
 
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
