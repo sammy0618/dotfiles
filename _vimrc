@@ -20,7 +20,7 @@ execute 'set runtimepath^=' . s:dein_repo_dir
 call dein#begin(s:dein_dir)
 
 call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/vimproc')
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('scrooloose/nerdtree')
 call dein#add('jistr/vim-nerdtree-tabs')
 call dein#add('Xuyuanp/nerdtree-git-plugin')
@@ -47,6 +47,10 @@ call dein#add('osyo-manga/vim-monster',     { 'on_ft': 'ruby' })
 
 call dein#end()
 
+" vimprocだけは最初にインストールしてほしい
+if dein#check_install(['vimproc'])
+  call dein#install(['vimproc'])
+endif
 if dein#check_install()
   call dein#install()
 endif
