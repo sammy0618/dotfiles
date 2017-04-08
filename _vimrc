@@ -79,6 +79,8 @@ let g:unite_split_rule = 'botright'
 "Uniteの設定
 "grep
 nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer -no-quit -vertical -keep-focus<CR>
+nnoremap <silent> ,G  :<C-u>Unite grep:.:-w -buffer-name=search-buffer -no-quit -vertical -keep-focus<CR>
+nnoremap <silent> ,eg  :<C-u>Unite grep:.:-e -buffer-name=search-buffer -no-quit -vertical -keep-focus<CR>
 " unite grepにhw(highway)を使う
 if executable('hw')
   let g:unite_source_grep_command = 'hw'
