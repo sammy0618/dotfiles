@@ -27,7 +27,6 @@ call dein#add('Xuyuanp/nerdtree-git-plugin')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('Shougo/unite.vim')
 call dein#add('altercation/vim-colors-solarized')
-call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/unite-outline')
 call dein#add('thinca/vim-ref')
 call dein#add('thinca/vim-quickrun')
@@ -90,6 +89,12 @@ endif
 nnoremap <silent> ,o :<C-u>Unite -vertical -winwidth=40 -no-quit -keep-focus outline<CR>
 "履歴
 nnoremap <silent> ,, :<C-u>Unite -vertical -winwidth=40 -no-quit -keep-focus -default-action=append history/yank<CR>
+"バッファ
+nnoremap <silent> ,b :<C-u>Unite -vertical -winwidth=40 -no-quit -keep-focus buffer -buffer-name=file<CR>
+"レジスタ
+nnoremap <silent> ,r :<C-u>Unite -vertical -winwidth=40 -no-quit -keep-focus register -buffer-name=register -default-action=append<CR>
+"バッファディレクトリ
+nnoremap <silent> ,bd :<C-u>UniteWithBufferDir -vertical -winwidth=40 -no-quit -keep-focus register -buffer-name=files file<CR>
 
 noremap <Space>g :Gtags
 noremap <Space>l :Gtags -f %<CR>
@@ -124,8 +129,6 @@ nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
-nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
-nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
 
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
