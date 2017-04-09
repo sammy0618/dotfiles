@@ -163,3 +163,5 @@ let g:neocomplete#sources#omni#input_patterns = {
 
 filetype plugin indent on
 
+" htmlタグの移動
+:source $VIMRUNTIME/macros/matchit.vim
