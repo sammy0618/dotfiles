@@ -48,8 +48,8 @@ call dein#add('osyo-manga/vim-monster',     { 'on_ft': 'ruby' })
 call dein#end()
 
 " vimprocだけは最初にインストールしてほしい
-if dein#check_install(['vimproc'])
-  call dein#install(['vimproc'])
+if dein#check_install(['vimproc.vim'])
+  call dein#install(['vimproc.vim'])
 endif
 if dein#check_install()
   call dein#install()
