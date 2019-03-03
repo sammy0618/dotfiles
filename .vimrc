@@ -9,6 +9,7 @@ set number
 set shortmess+=I
 set clipboard=unnamed
 set formatoptions-=ro
+set hidden
 
 let s:dein_dir = expand('~/.vim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -165,3 +166,6 @@ filetype plugin indent on
 
 " htmlタグの移動
 :source $VIMRUNTIME/macros/matchit.vim
+
+nnoremap <Silent><C-n> :enew<CR>
+
