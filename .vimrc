@@ -163,7 +163,6 @@ filetype plugin indent on
 " htmlタグの移動
 :source $VIMRUNTIME/macros/matchit.vim
 
-
 " ファイルツリーの表示形式、1にするとls -laのような表示になります
 let g:netrw_liststyle=1
 " ヘッダを非表示にする
@@ -176,3 +175,7 @@ let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S"
 let g:netrw_preview=1
 "ウィンドウを垂直分割で開く
 "let g:netrw_browse_split=2
+
+"新規バッファ
+nnoremap <Silent><C-n> :enew<CR>
+
