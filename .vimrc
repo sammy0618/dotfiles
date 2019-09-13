@@ -178,4 +178,7 @@ let g:netrw_preview=1
 
 "新規バッファ
 nnoremap <Silent><C-n> :enew<CR>
+"commadn line window open size
+noremap q: q:<C-w>=
+cnoremap <C-f> <C-f><C-w>=
 
