@@ -34,7 +34,6 @@ call dein#add('thinca/vim-ref')
 call dein#add('thinca/vim-quickrun')
 call dein#add('kana/vim-submode')
 call dein#add('itchyny/lightline.vim')
-call dein#add('altercation/vim-colors-solarized')
 call dein#add('rhysd/accelerated-jk')
 call dein#add('vim-scripts/gtags.vim')
 call dein#add('simeji/winresizer')
@@ -147,8 +146,8 @@ au VimEnter,ColorScheme * highlight Pmenu ctermfg=62
 au VimEnter,ColorScheme * highlight PmenuSel ctermfg=134
 
 "syntax enable
-set background=dark
-colorscheme solarized
+"set background=dark
+"colorscheme solarized
 
 "neocomplete.vim
 let g:neocomplete#enable_at_startup = 1
