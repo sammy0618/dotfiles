@@ -10,6 +10,8 @@ set shortmess+=I
 set clipboard+=unnamed
 set formatoptions-=ro
 set noswapfile
+
+"Force altarnate buffer change when editing buffer"
 set hidden
 
 "netrwの有効化
