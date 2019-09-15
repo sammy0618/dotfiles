@@ -10,6 +10,7 @@ set shortmess+=I
 set clipboard+=unnamed
 set formatoptions-=ro
 set noswapfile
+set hidden
 
 "netrwの有効化
 filetype plugin on
