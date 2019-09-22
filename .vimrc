@@ -10,12 +10,15 @@ set shortmess+=I
 set clipboard+=unnamed
 set formatoptions-=ro
 set noswapfile
+set laststatus=2
 
 "Force altarnate buffer change when editing buffer"
 set hidden
 
 "netrwの有効化
 filetype plugin on
+
+let mapleader = "\<Space>"
 
 let s:dein_dir = expand('~/.vim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -58,9 +61,69 @@ if dein#check_install()
 endif
 
 "--------lightlineの設定------------
-let g:lightline = {
-      \ 'colorscheme': 'solarized'
-      \ }
+"let g:lightline = {
+"      \ 'colorscheme': 'solarized'
+"      \ }
+
+"let g:lightline = {
+"        \ 'colorscheme': 'wombat',
+"        \ 'mode_map': {'c': 'NORMAL'},
+"        \ 'active': {
+"        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+"        \ },
+"        \ 'component_function': {
+"        \   'modified': 'LightlineModified',
+"        \   'readonly': 'LightlineReadonly',
+"        \   'fugitive': 'LightlineFugitive',
+"        \   'filename': 'LightlineFilename',
+"        \   'fileformat': 'LightlineFileformat',
+"        \   'filetype': 'LightlineFiletype',
+"        \   'fileencoding': 'LightlineFileencoding',
+"        \   'mode': 'LightlineMode'
+"        \ }
+"        \ }
+"
+function! LightlineModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightlineReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+endfunction
+
+function! LightlineFilename()
+  return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+endfunction
+
+function! LightlineFugitive()
+  if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+    return fugitive#head()
+  else
+    return ''
+  endif
+endfunction
+
+function! LightlineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFiletype()
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightlineFileencoding()
+  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+endfunction
+
+function! LightlineMode()
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
 
 "--------j/kによる移動を速くする------------
 nmap j <Plug>(accelerated_jk_gj)
@@ -69,7 +132,7 @@ nmap k <Plug>(accelerated_jk_gk)
 "--------キーマップ------------
 nnoremap ; :
 "netrwの表示
-nnoremap <silent><C-e> :Ex<CR>
+nnoremap <silent><C-e> :Tex<CR>
 
 let g:unite_split_rule = 'botright'
 "Uniteの設定
@@ -180,7 +243,43 @@ let g:netrw_preview=1
 
 "新規バッファ
 nnoremap <Silent><C-n> :enew<CR>
+"設定ファイルの編集
+nnoremap <Leader>. :tabe ~/.vimrc<CR>
+
 "commadn line window open size
 noremap q: q:<C-w>=
 cnoremap <C-f> <C-f><C-w>=
 
+"Space+P toggles paste mode
+nmap <leader>p :set paste!<BAR>set paste?<CR>
+
+" Switch tab
+nmap <S-Tab> :tabprev<Return>
+nmap <Tab> :tabnext<Return>
+
+"visible tab font etc
+set list
+"set listchars=tab:>_,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set listchars=tab:^_,eol:↲
+
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'absolutepath', 'modified' ] ],
+      \ },
+      \ 'component_function': {
+      \   'absolutepath': 'AbsolutePath'
+      \ }
+      \ }
+
+
+function! AbsolutePath()
+  let a = substitute(expand('%:p'), $HOME, '~', '')
+  if a == ""
+    return '🗒'
+  elseif strlen(a) > 40
+    return a[strlen(a)-40:]
+  else
+    return a
+  endif
+endfunction
