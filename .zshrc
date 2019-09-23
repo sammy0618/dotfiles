@@ -47,7 +47,8 @@ SAVEHIST=1000000
 # 2行表示
 #PROMPT="%{${fg[green]}%}[%n@%m]%{${reset_color}%} %~
 #%# "
-PROMPT="%{${fg[green]}%}[%n@%m]%{${reset_color}%}%#"
+PROMPT='%K{green}%F{black}[%n]%K{blue}%F{black}%~%f%k%#'
+PROMPT='%K{green}%F{black}[%n]%f%k%F{green}%~%#%f'
 
 
 
@@ -84,8 +85,12 @@ zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
 
-zstyle ':vcs_info:*' formats '%F{green}(%s)-[%b]%f'
-zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+zstyle ':vcs_info:*' formats '%F{green}%c%u[%b]%f'
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+#zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
 
 function _update_vcs_info_msg() {
     LANG=en_US.UTF-8 vcs_info
