@@ -11,6 +11,8 @@ set clipboard+=unnamed
 set formatoptions-=ro
 set noswapfile
 set laststatus=2
+set virtualedit+=block
+
 let mapleader = "\<Space>"
 
 "Force altarnate buffer change when editing buffer"
