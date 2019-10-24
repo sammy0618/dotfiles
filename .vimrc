@@ -7,10 +7,19 @@ set autoindent
 syntax on
 set number
 set shortmess+=I
-set clipboard=unnamed
+set clipboard+=unnamed
 set formatoptions-=ro
+set noswapfile
+set laststatus=2
+set virtualedit+=block
+
+let mapleader = "\<Space>"
+
+"Force altarnate buffer change when editing buffer"
 set hidden
 set nowrap
+"netrwの有効化
+filetype plugin on
 
 let s:dein_dir = expand('~/.vim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -23,8 +32,6 @@ call dein#begin(s:dein_dir)
 
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-call dein#add('scrooloose/nerdtree')
-call dein#add('jistr/vim-nerdtree-tabs')
 call dein#add('Xuyuanp/nerdtree-git-plugin')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('Shougo/unite.vim')
@@ -34,15 +41,12 @@ call dein#add('thinca/vim-ref')
 call dein#add('thinca/vim-quickrun')
 call dein#add('kana/vim-submode')
 call dein#add('itchyny/lightline.vim')
-call dein#add('altercation/vim-colors-solarized')
 call dein#add('rhysd/accelerated-jk')
 call dein#add('vim-scripts/gtags.vim')
 call dein#add('simeji/winresizer')
 call dein#add('alpaca-tc/alpaca_tags')
 call dein#add('Shougo/neoyank.vim')
-
-"call dein#add('Shougo/neocomplcache')
-"call dein#add('Shougo/neocomplcache-rsense.vim')
+call dein#add('kchmck/vim-coffee-script')
 
 call dein#add('Shougo/neocomplete.vim',     { 'on_i': 1 })
 call dein#add('osyo-manga/vim-monster',     { 'on_ft': 'ruby' })
@@ -76,7 +80,10 @@ nmap k <Plug>(accelerated_jk_gk)
 "--------キーマップ------------
 "nnoremap ; :
 
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
+"netrwの表示
+
+nnoremap <silent><C-e> :Tex<CR>
+
 let g:unite_split_rule = 'botright'
 "Uniteの設定
 "grep
@@ -133,6 +140,9 @@ nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
+"--------コマンド別名----------
+cnoremap <c-x> <c-r>=expand( '%:p:h')<cr>/
+cnoremap <c-z> <c-r>=expand( '%:p')<cr>
 
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
@@ -152,8 +162,8 @@ au VimEnter,ColorScheme * highlight Pmenu ctermfg=62
 au VimEnter,ColorScheme * highlight PmenuSel ctermfg=134
 
 "syntax enable
-set background=dark
-colorscheme solarized
+"set background=dark
+"colorscheme solarized
 
 "neocomplete.vim
 let g:neocomplete#enable_at_startup = 1
@@ -168,5 +178,58 @@ filetype plugin indent on
 " htmlタグの移動
 :source $VIMRUNTIME/macros/matchit.vim
 
-nnoremap <Silent><C-n> :enew<CR>
+" ファイルツリーの表示形式、1にするとls -laのような表示になります
+let g:netrw_liststyle=1
+" ヘッダを非表示にする
+let g:netrw_banner=0
+" サイズを(K,M,G)で表示する
+let g:netrw_sizestyle="H"
+" 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
+let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S"
+" プレビューウィンドウを垂直分割で表示する
+let g:netrw_preview=1
+"ウィンドウを垂直分割で開く
+"let g:netrw_browse_split=2
 
+"新規バッファ
+nnoremap <Silent><C-n> :enew<CR>
+"設定ファイルの編集
+nnoremap <Leader>. :tabe ~/.vimrc<CR>
+
+"commadn line window open size
+noremap q: q:<C-w>=
+cnoremap <C-f> <C-f><C-w>=
+
+"Space+P toggles paste mode
+nmap <leader>p :set paste!<BAR>set paste?<CR>
+
+" Switch tab
+nmap <S-Tab> :tabprev<Return>
+nmap <Tab> :tabnext<Return>
+
+"visible tab font etc
+set list
+"set listchars=tab:>_,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set listchars=tab:^_,eol:↲
+
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'absolutepath', 'modified' ] ],
+      \ },
+      \ 'component_function': {
+      \   'absolutepath': 'AbsolutePath'
+      \ }
+      \ }
+
+
+function! AbsolutePath()
+  let a = substitute(expand('%:p'), $HOME, '~', '')
+  if a == ""
+    return '??'
+  elseif strlen(a) > 40
+    return a[strlen(a)-40:]
+  else
+    return a
+  endif
+endfunction
