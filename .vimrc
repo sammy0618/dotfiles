@@ -12,6 +12,7 @@ set formatoptions-=ro
 set noswapfile
 set laststatus=2
 set virtualedit+=block
+set showtabline=2
 
 let mapleader = "\<Space>"
 
@@ -47,8 +48,21 @@ call dein#add('alpaca-tc/alpaca_tags')
 call dein#add('Shougo/neoyank.vim')
 call dein#add('kchmck/vim-coffee-script')
 
-call dein#add('Shougo/neocomplete.vim',     { 'on_i': 1 })
-call dein#add('osyo-manga/vim-monster',     { 'on_ft': 'ruby' })
+call dein#add('prabirshrestha/async.vim')
+call dein#add('prabirshrestha/vim-lsp')
+call dein#add('mattn/vim-lsp-settings')
+
+"call dein#add('Shougo/deoplete.nvim')
+"call dein#add('roxma/nvim-yarp')
+"call dein#add('roxma/vim-hug-neovim-rpc')
+"call dein#add('lighttiger2505/deoplete-vim-lsp')
+"call dein#add('takkii/Bignyanco')
+call dein#add('vim-jp/vimdoc-ja')
+
+"Markdown用のプラグイン
+call dein#add('tpope/vim-markdown')
+call dein#add('kannokanno/previm')
+call dein#add('tyru/open-browser.vim')
 
 call dein#end()
 
@@ -139,8 +153,8 @@ call submode#map('bufmove', 'n', '', '+', '<C-w>+')
 call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 
 "neocomplcache keybind
-inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
-inoremap <expr><C-Tab> pumvisible() ? "\<Up>" : "\<C-Tab>"
+"inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
+"inoremap <expr><C-Tab> pumvisible() ? "\<Up>" : "\<C-Tab>"
 
 "PopUpMenuの色設定
 au VimEnter,ColorScheme * highlight Pmenu ctermfg=62
@@ -150,13 +164,15 @@ au VimEnter,ColorScheme * highlight PmenuSel ctermfg=134
 "set background=dark
 "colorscheme solarized
 
-"neocomplete.vim
-let g:neocomplete#enable_at_startup = 1
+"deoplete.vim
+"let g:deoplete#enable_at_startup = 1
+"call deoplete#custom#source('_', 'matchers', ['matcher_head',
+"\ 'matcher_length'])
 
-" vim-monster
-let g:neocomplete#sources#omni#input_patterns = {
-      \  'ruby': '[^. *\t]\.\w*\|\h\w*::'
-      \}
+"" vim-monster
+"let g:neocomplete#sources#omni#input_patterns = {
+"      \  'ruby': '[^. *\t]\.\w*\|\h\w*::'
+"      \}
 
 filetype plugin indent on
 
@@ -198,12 +214,17 @@ set list
 set listchars=tab:^_,eol:↲
 
 let g:lightline = {
+      \ 'tabline': {
+      \   'left': [ [ 'cwd' ],[ 'tabs' ] ],
+      \   'right': [ [ 'close' ] ],
+      \ },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly', 'absolutepath', 'modified' ] ],
       \ },
       \ 'component_function': {
-      \   'absolutepath': 'AbsolutePath'
+      \   'absolutepath': 'AbsolutePath',
+      \   'cwd': 'getcwd',
       \ }
       \ }
 
@@ -218,3 +239,13 @@ function! AbsolutePath()
     return a
   endif
 endfunction
+
+""" markdown {{{
+   autocmd BufRead,BufNewFile *.mkd  set filetype=markdown
+   autocmd BufRead,BufNewFile *.md  set filetype=markdown
+   " Need: kannokanno/previm
+   nnoremap <silent> <C-p> :PrevimOpen<CR> " Ctrl-pでプレビュー
+   " 自動で折りたたまないようにする
+   let g:vim_markdown_folding_disabled=1
+   let g:previm_enable_realtime = 1
+" }}}
