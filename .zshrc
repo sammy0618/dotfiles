@@ -273,3 +273,4 @@ function peco-cdr() {
 }
 zle -N peco-cdr
 bindkey '^d' peco-cdr
+export PATH="/usr/local/sbin:$PATH"

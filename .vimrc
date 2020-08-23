@@ -18,6 +18,7 @@ let mapleader = "\<Space>"
 
 "Force altarnate buffer change when editing buffer"
 set hidden
+set nowrap
 "netrwの有効化
 filetype plugin on
 
@@ -74,13 +75,27 @@ if dein#check_install()
   call dein#install()
 endif
 
+"--------NerdTreeの設定------------
+let NERDTreeShowHidden = 1
+" ファイルが指定されていなければNERD treeを有効にする
+"if argc() == 0
+"  let g:nerdtree_tabs_open_on_console_startup = 1
+"end
+
+"--------lightlineの設定------------
+let g:lightline = {
+      \ 'colorscheme': 'solarized'
+      \ }
+
 "--------j/kによる移動を速くする------------
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 
 "--------キーマップ------------
-nnoremap ; :
+"nnoremap ; :
+
 "netrwの表示
+
 nnoremap <silent><C-e> :Tex<CR>
 
 let g:unite_split_rule = 'botright'
@@ -96,13 +111,13 @@ if executable('hw')
   let g:unite_source_grep_recursive_opt = ''
 endif
 "アウトライン
-nnoremap <silent> ,o :<C-u>Unite -vertical -winwidth=40 -no-quit -keep-focus outline<CR>
+nnoremap <silent> ,o :<C-u>Unite -vertical -winwidth=80 -no-quit -keep-focus outline<CR>
 "履歴
-nnoremap <silent> ,, :<C-u>Unite -vertical -winwidth=40 -no-quit -keep-focus -default-action=append history/yank<CR>
+nnoremap <silent> ,, :<C-u>Unite -vertical -winwidth=80 -no-quit -keep-focus -default-action=append history/yank<CR>
 "バッファ
-nnoremap <silent> ,b :<C-u>Unite -vertical -winwidth=40 -no-quit -keep-focus buffer -buffer-name=file<CR>
+nnoremap <silent> ,b :<C-u>Unite -vertical -winwidth=80 -no-quit -keep-focus buffer -buffer-name=file<CR>
 "レジスタ
-nnoremap <silent> ,r :<C-u>Unite -vertical -winwidth=40 -no-quit -keep-focus register -buffer-name=register -default-action=append<CR>
+nnoremap <silent> ,r :<C-u>Unite -vertical -winwidth=80 -no-quit -keep-focus register -buffer-name=register -default-action=append<CR>
 "バッファディレクトリ
 nnoremap <silent> ,bd :<C-u>UniteWithBufferDir -vertical -winwidth=40 -no-quit -keep-focus register -buffer-name=files file<CR>
 
