@@ -13,6 +13,7 @@ set noswapfile
 set laststatus=2
 set virtualedit+=block
 set showtabline=2
+set nocompatible
 
 let mapleader = "\<Space>"
 
@@ -37,6 +38,7 @@ call dein#add('Xuyuanp/nerdtree-git-plugin')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('Shougo/unite.vim')
 call dein#add('altercation/vim-colors-solarized')
+call dein#add('ghifarit53/tokyonight-vim')
 call dein#add('Shougo/unite-outline')
 call dein#add('thinca/vim-ref')
 call dein#add('thinca/vim-quickrun')
@@ -64,6 +66,7 @@ call dein#add('vim-jp/vimdoc-ja')
 call dein#add('tpope/vim-markdown')
 call dein#add('kannokanno/previm')
 call dein#add('tyru/open-browser.vim')
+call dein#add('jlanzarotta/bufexplorer')
 
 call dein#end()
 
@@ -82,11 +85,6 @@ let NERDTreeShowHidden = 1
 "  let g:nerdtree_tabs_open_on_console_startup = 1
 "end
 
-"--------lightlineの設定------------
-let g:lightline = {
-      \ 'colorscheme': 'solarized'
-      \ }
-
 "--------j/kによる移動を速くする------------
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
@@ -95,8 +93,7 @@ nmap k <Plug>(accelerated_jk_gk)
 "nnoremap ; :
 
 "netrwの表示
-
-nnoremap <silent><C-e> :Tex<CR>
+nnoremap <silent><C-e> :20Lex<CR>
 
 let g:unite_split_rule = 'botright'
 "Uniteの設定
@@ -177,6 +174,11 @@ au VimEnter,ColorScheme * highlight PmenuSel ctermfg=134
 
 "syntax enable
 "set background=dark
+"color scheme change to tokyo-night
+set termguicolors
+let g:tokyonight_style = 'night'
+let g:tokyonight_enable_italic = 1
+colorscheme tokyonight
 "colorscheme solarized
 
 "deoplete.vim
@@ -240,7 +242,8 @@ let g:lightline = {
       \ 'component_function': {
       \   'absolutepath': 'AbsolutePath',
       \   'cwd': 'getcwd',
-      \ }
+      \ },
+      \ 'colorscheme': 'jellybeans'
       \ }
 
 
