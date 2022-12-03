@@ -14,6 +14,8 @@ set laststatus=2
 set virtualedit+=block
 set showtabline=2
 set nocompatible
+set mouse=a
+set backspace=indent,eol,start
 
 let mapleader = "\<Space>"
 
@@ -32,7 +34,8 @@ call dein#begin(s:dein_dir)
 
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-call dein#add('Xuyuanp/nerdtree-git-plugin')
+"call dein#add('Xuyuanp/nerdtree-git-plugin')
+call dein#add('lambdalisue/fern.vim')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('Shougo/unite.vim')
 call dein#add('altercation/vim-colors-solarized')
@@ -68,6 +71,8 @@ call dein#add('kannokanno/previm')
 call dein#add('tyru/open-browser.vim')
 call dein#add('jlanzarotta/bufexplorer')
 call dein#add('lambdalisue/fern.vim')
+call dein#add('majutsushi/tagbar')
+call dein#add('mattn/emmet-vim')
 
 call dein#end()
 
@@ -78,13 +83,6 @@ endif
 if dein#check_install()
   call dein#install()
 endif
-
-"--------NerdTreeの設定------------
-let NERDTreeShowHidden = 1
-" ファイルが指定されていなければNERD treeを有効にする
-"if argc() == 0
-"  let g:nerdtree_tabs_open_on_console_startup = 1
-"end
 
 "--------j/kによる移動を速くする------------
 nmap j <Plug>(accelerated_jk_gj)
@@ -197,23 +195,10 @@ filetype plugin indent on
 " htmlタグの移動
 :source $VIMRUNTIME/macros/matchit.vim
 
-" ファイルツリーの表示形式、1にするとls -laのような表示になります
-let g:netrw_liststyle=1
-" ヘッダを非表示にする
-let g:netrw_banner=0
-" サイズを(K,M,G)で表示する
-let g:netrw_sizestyle="H"
-" 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S"
-" プレビューウィンドウを垂直分割で表示する
-let g:netrw_preview=1
-"ウィンドウを垂直分割で開く
-"let g:netrw_browse_split=2
-
 "新規バッファ
 nnoremap <Silent><C-n> :enew<CR>
 "設定ファイルの編集
-nnoremap <Leader>. :tabe ~/.vimrc<CR>
+nnoremap <leader>. :tabe ~/.vimrc<CR>
 
 "commadn line window open size
 noremap q: q:<C-w>=
@@ -271,3 +256,6 @@ endfunction
    let g:vim_markdown_folding_disabled=1
    let g:previm_enable_realtime = 1
 " }}}
+
+let g:tagbar_width = 30
+let g:tagbar_autoshowtag = 1

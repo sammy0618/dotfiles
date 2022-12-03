@@ -24,7 +24,6 @@ eval "$(rbenv init -)"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH=${PYENV_ROOT}/bin:$PATH
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 #nodenvの設定
 export PATH="$HOME/.nodenv/bin:$PATH"
