@@ -26,6 +26,10 @@ export PATH=${PYENV_ROOT}/bin:$PATH
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+#nodenvの設定
+export PATH="$HOME/.nodenv/bin:$PATH"
+eval "$(nodenv init -)"
+
 #neovimの設定
 export XDG_CONFIG_HOME=$HOME/.config
 
@@ -47,7 +51,7 @@ SAVEHIST=1000000
 # 2行表示
 #PROMPT="%{${fg[green]}%}[%n@%m]%{${reset_color}%} %~
 #%# "
-PROMPT='%K{green}%F{black}[%n]%K{blue}%F{black}%~%f%k%#'
+#PROMPT='%K{green}%F{black}[%n]%K{blue}%F{black}%~%f%k%#'
 PROMPT='%K{green}%F{black}[%n]%f%k%F{green}%~%#%f'
 
 
@@ -193,12 +197,13 @@ case ${OSTYPE} in
         # enable color support of ls and also add handy aliases
         if [ -x /usr/bin/dircolors ]; then
             test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-            alias ls='ls -al --color=auto'
-            #alias dir='dir --color=auto'
-            #alias vdir='vdir --color=auto'
-            alias grep='grep --color=auto'
-            alias fgrep='fgrep --color=auto'
-            alias egrep='egrep --color=auto'
+            alias ls='ls -al --color=always'
+            alias less='less -R'
+            #alias dir='dir --color=always'
+            #alias vdir='vdir --color=always'
+            alias grep='grep --color=always'
+            alias fgrep='fgrep --color=always'
+            alias egrep='egrep --color=always'
         fi
 
         ;;
@@ -274,3 +279,4 @@ function peco-cdr() {
 zle -N peco-cdr
 bindkey '^d' peco-cdr
 export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/.nodenv/bin:$PATH"

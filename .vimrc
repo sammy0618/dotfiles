@@ -20,8 +20,6 @@ let mapleader = "\<Space>"
 "Force altarnate buffer change when editing buffer"
 set hidden
 set nowrap
-"netrwの有効化
-filetype plugin on
 
 let s:dein_dir = expand('~/.vim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -47,13 +45,15 @@ call dein#add('itchyny/lightline.vim')
 call dein#add('rhysd/accelerated-jk')
 call dein#add('vim-scripts/gtags.vim')
 call dein#add('simeji/winresizer')
-call dein#add('alpaca-tc/alpaca_tags')
 call dein#add('Shougo/neoyank.vim')
 call dein#add('kchmck/vim-coffee-script')
 
-call dein#add('prabirshrestha/async.vim')
+"call dein#add('prabirshrestha/async.vim')
 call dein#add('prabirshrestha/vim-lsp')
 call dein#add('mattn/vim-lsp-settings')
+call dein#add('mattn/emmet-vim')
+call dein#add('prabirshrestha/asyncomplete.vim')
+call dein#add('prabirshrestha/asyncomplete-lsp.vim')
 
 "call dein#add('Shougo/deoplete.nvim')
 "call dein#add('roxma/nvim-yarp')
@@ -67,6 +67,7 @@ call dein#add('tpope/vim-markdown')
 call dein#add('kannokanno/previm')
 call dein#add('tyru/open-browser.vim')
 call dein#add('jlanzarotta/bufexplorer')
+call dein#add('lambdalisue/fern.vim')
 
 call dein#end()
 
@@ -92,8 +93,8 @@ nmap k <Plug>(accelerated_jk_gk)
 "--------キーマップ------------
 "nnoremap ; :
 
-"netrwの表示
-nnoremap <silent><C-e> :20Lex<CR>
+"Fernの表示
+nnoremap <silent><C-e> :Fern . -reveal=% -drawer -toggle<CR>
 
 let g:unite_split_rule = 'botright'
 "Uniteの設定
@@ -246,6 +247,9 @@ let g:lightline = {
       \ 'colorscheme': 'jellybeans'
       \ }
 
+let g:user_emmet_settings = {
+\  'variables': {'lang': 'ja'},
+\}
 
 function! AbsolutePath()
   let a = substitute(expand('%:p'), $HOME, '~', '')
