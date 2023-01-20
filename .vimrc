@@ -193,10 +193,6 @@ filetype plugin indent on
 " htmlタグの移動
 :source $VIMRUNTIME/macros/matchit.vim
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 41e3a6b462b597d1ef71a7da95e9c3c0effda64e
 "新規バッファ
 nnoremap <Silent><C-n> :enew<CR>
 "設定ファイルの編集
