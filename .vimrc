@@ -14,14 +14,15 @@ set laststatus=2
 set virtualedit+=block
 set showtabline=2
 set nocompatible
+set encoding=utf-8
+set fileencodings=utf-8,euc-jp,sjis
+set fileformats=unix,dos,mac
 
 let mapleader = "\<Space>"
 
 "Force altarnate buffer change when editing buffer"
 set hidden
 set nowrap
-"netrwの有効化
-filetype plugin on
 
 let s:dein_dir = expand('~/.vim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -34,7 +35,8 @@ call dein#begin(s:dein_dir)
 
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-call dein#add('Xuyuanp/nerdtree-git-plugin')
+"call dein#add('Xuyuanp/nerdtree-git-plugin')
+call dein#add('lambdalisue/fern.vim')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('Shougo/unite.vim')
 call dein#add('altercation/vim-colors-solarized')
@@ -54,6 +56,7 @@ call dein#add('kchmck/vim-coffee-script')
 call dein#add('prabirshrestha/async.vim')
 call dein#add('prabirshrestha/vim-lsp')
 call dein#add('mattn/vim-lsp-settings')
+call dein#add('mattn/emmet-vim')
 
 "call dein#add('Shougo/deoplete.nvim')
 "call dein#add('roxma/nvim-yarp')
@@ -64,7 +67,7 @@ call dein#add('vim-jp/vimdoc-ja')
 
 "Markdown用のプラグイン
 call dein#add('tpope/vim-markdown')
-call dein#add('kannokanno/previm')
+call dein#add('previm/previm')
 call dein#add('tyru/open-browser.vim')
 call dein#add('jlanzarotta/bufexplorer')
 
@@ -92,8 +95,8 @@ nmap k <Plug>(accelerated_jk_gk)
 "--------キーマップ------------
 "nnoremap ; :
 
-"netrwの表示
-nnoremap <silent><C-e> :20Lex<CR>
+"Fernの表示
+nnoremap <C-e> :Fern . -reveal=% -drawer -toggle<CR>
 
 let g:unite_split_rule = 'botright'
 "Uniteの設定
@@ -196,18 +199,6 @@ filetype plugin indent on
 " htmlタグの移動
 :source $VIMRUNTIME/macros/matchit.vim
 
-" ファイルツリーの表示形式、1にするとls -laのような表示になります
-let g:netrw_liststyle=1
-" ヘッダを非表示にする
-let g:netrw_banner=0
-" サイズを(K,M,G)で表示する
-let g:netrw_sizestyle="H"
-" 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S"
-" プレビューウィンドウを垂直分割で表示する
-let g:netrw_preview=1
-"ウィンドウを垂直分割で開く
-"let g:netrw_browse_split=2
 
 "新規バッファ
 nnoremap <Silent><C-n> :enew<CR>
@@ -258,12 +249,15 @@ function! AbsolutePath()
   endif
 endfunction
 
-""" markdown {{{
-   autocmd BufRead,BufNewFile *.mkd  set filetype=markdown
-   autocmd BufRead,BufNewFile *.md  set filetype=markdown
-   " Need: kannokanno/previm
-   nnoremap <silent> <C-p> :PrevimOpen<CR> " Ctrl-pでプレビュー
-   " 自動で折りたたまないようにする
-   let g:vim_markdown_folding_disabled=1
-   let g:previm_enable_realtime = 1
-" }}}
+let g:previm_enable_realtime = 1
+"let g:previm_open_cmd = 'open -a Google\ Chrmoe'
+
+"""" markdown {{{
+"   autocmd BufRead,BufNewFile *.mkd  set filetype=markdown
+"   autocmd BufRead,BufNewFile *.md  set filetype=markdown
+"   " Need: kannokanno/previm
+"   nnoremap <silent> <C-p> :PrevimOpen<CR> " Ctrl-pでプレビュー
+"   " 自動で折りたたまないようにする
+"   let g:vim_markdown_folding_disabled=1
+"   let g:previm_enable_realtime = 1
+"" }}}

@@ -26,6 +26,10 @@ export PATH=${PYENV_ROOT}/bin:$PATH
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+#rbenvの設定
+export PATH="$HOME/.nodenv/bin:$PATH"
+eval "$(nodenv init -)"
+
 #neovimの設定
 export XDG_CONFIG_HOME=$HOME/.config
 
@@ -274,3 +278,4 @@ function peco-cdr() {
 zle -N peco-cdr
 bindkey '^d' peco-cdr
 export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/.nodenv/bin:$PATH"
