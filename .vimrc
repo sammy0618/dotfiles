@@ -17,6 +17,8 @@ set nocompatible
 set encoding=utf-8
 set fileencodings=utf-8,euc-jp,sjis
 set fileformats=unix,dos,mac
+set mouse=a
+set backspace=indent,eol,start
 
 let mapleader = "\<Space>"
 
@@ -35,8 +37,6 @@ call dein#begin(s:dein_dir)
 
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-"call dein#add('Xuyuanp/nerdtree-git-plugin')
-call dein#add('lambdalisue/fern.vim')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('Shougo/unite.vim')
 call dein#add('altercation/vim-colors-solarized')
@@ -49,14 +49,12 @@ call dein#add('itchyny/lightline.vim')
 call dein#add('rhysd/accelerated-jk')
 call dein#add('vim-scripts/gtags.vim')
 call dein#add('simeji/winresizer')
-call dein#add('alpaca-tc/alpaca_tags')
 call dein#add('Shougo/neoyank.vim')
 call dein#add('kchmck/vim-coffee-script')
 
-call dein#add('prabirshrestha/async.vim')
+"call dein#add('prabirshrestha/async.vim')
 call dein#add('prabirshrestha/vim-lsp')
 call dein#add('mattn/vim-lsp-settings')
-call dein#add('mattn/emmet-vim')
 
 "call dein#add('Shougo/deoplete.nvim')
 "call dein#add('roxma/nvim-yarp')
@@ -70,6 +68,9 @@ call dein#add('tpope/vim-markdown')
 call dein#add('previm/previm')
 call dein#add('tyru/open-browser.vim')
 call dein#add('jlanzarotta/bufexplorer')
+call dein#add('lambdalisue/fern.vim')
+call dein#add('majutsushi/tagbar')
+call dein#add('mattn/emmet-vim')
 
 call dein#end()
 
@@ -81,13 +82,6 @@ if dein#check_install()
   call dein#install()
 endif
 
-"--------NerdTreeの設定------------
-let NERDTreeShowHidden = 1
-" ファイルが指定されていなければNERD treeを有効にする
-"if argc() == 0
-"  let g:nerdtree_tabs_open_on_console_startup = 1
-"end
-
 "--------j/kによる移動を速くする------------
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
@@ -96,7 +90,7 @@ nmap k <Plug>(accelerated_jk_gk)
 "nnoremap ; :
 
 "Fernの表示
-nnoremap <C-e> :Fern . -reveal=% -drawer -toggle<CR>
+nnoremap <silent><C-e> :Fern . -reveal=% -drawer -toggle<CR>
 
 let g:unite_split_rule = 'botright'
 "Uniteの設定
@@ -199,11 +193,14 @@ filetype plugin indent on
 " htmlタグの移動
 :source $VIMRUNTIME/macros/matchit.vim
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 41e3a6b462b597d1ef71a7da95e9c3c0effda64e
 "新規バッファ
 nnoremap <Silent><C-n> :enew<CR>
 "設定ファイルの編集
-nnoremap <Leader>. :tabe ~/.vimrc<CR>
+nnoremap <leader>. :tabe ~/.vimrc<CR>
 
 "commadn line window open size
 noremap q: q:<C-w>=
@@ -237,6 +234,9 @@ let g:lightline = {
       \ 'colorscheme': 'jellybeans'
       \ }
 
+let g:user_emmet_settings = {
+\  'variables': {'lang': 'ja'},
+\}
 
 function! AbsolutePath()
   let a = substitute(expand('%:p'), $HOME, '~', '')
@@ -250,14 +250,3 @@ function! AbsolutePath()
 endfunction
 
 let g:previm_enable_realtime = 1
-"let g:previm_open_cmd = 'open -a Google\ Chrmoe'
-
-"""" markdown {{{
-"   autocmd BufRead,BufNewFile *.mkd  set filetype=markdown
-"   autocmd BufRead,BufNewFile *.md  set filetype=markdown
-"   " Need: kannokanno/previm
-"   nnoremap <silent> <C-p> :PrevimOpen<CR> " Ctrl-pでプレビュー
-"   " 自動で折りたたまないようにする
-"   let g:vim_markdown_folding_disabled=1
-"   let g:previm_enable_realtime = 1
-"" }}}
