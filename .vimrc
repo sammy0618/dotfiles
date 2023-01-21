@@ -1,24 +1,19 @@
-filetype off
+"syntax on
 
 set tabstop=2
 set shiftwidth=2
 set expandtab
 set autoindent
-syntax on
 set number
-set shortmess+=I
 set clipboard+=unnamed
 set formatoptions-=ro
 set noswapfile
 set laststatus=2
 set virtualedit+=block
 set showtabline=2
-set nocompatible
-set encoding=utf-8
-set fileencodings=utf-8,euc-jp,sjis
-set fileformats=unix,dos,mac
 set mouse=a
-set backspace=indent,eol,start
+set completeopt=menuone,noinsert
+set shortmess+=I
 
 let mapleader = "\<Space>"
 
@@ -26,61 +21,29 @@ let mapleader = "\<Space>"
 set hidden
 set nowrap
 
-let s:dein_dir = expand('~/.vim/dein')
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-if !isdirectory(s:dein_repo_dir)
-  execute '!git clone https://github.com/Shougo/dein.vim.git' s:dein_repo_dir
-endif
 
-execute 'set runtimepath^=' . s:dein_repo_dir
-call dein#begin(s:dein_dir)
+call plug#begin()
+Plug 'easymotion/vim-easymotion'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'itchyny/lightline.vim'
+Plug 'mattn/emmet-vim'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'rhysd/accelerated-jk'
+Plug 'tpope/vim-surround'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'dylanngo95/react-native-snippet'
+Plug 'will133/vim-dirdiff'
+Plug 'tpope/vim-fugitive'
 
-call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-call dein#add('airblade/vim-gitgutter')
-call dein#add('Shougo/unite.vim')
-call dein#add('altercation/vim-colors-solarized')
-call dein#add('ghifarit53/tokyonight-vim')
-call dein#add('Shougo/unite-outline')
-call dein#add('thinca/vim-ref')
-call dein#add('thinca/vim-quickrun')
-call dein#add('kana/vim-submode')
-call dein#add('itchyny/lightline.vim')
-call dein#add('rhysd/accelerated-jk')
-call dein#add('vim-scripts/gtags.vim')
-call dein#add('simeji/winresizer')
-call dein#add('Shougo/neoyank.vim')
-call dein#add('kchmck/vim-coffee-script')
-
-"call dein#add('prabirshrestha/async.vim')
-call dein#add('prabirshrestha/vim-lsp')
-call dein#add('mattn/vim-lsp-settings')
-
-"call dein#add('Shougo/deoplete.nvim')
-"call dein#add('roxma/nvim-yarp')
-"call dein#add('roxma/vim-hug-neovim-rpc')
-"call dein#add('lighttiger2505/deoplete-vim-lsp')
-"call dein#add('takkii/Bignyanco')
-call dein#add('vim-jp/vimdoc-ja')
-
-"Markdown用のプラグイン
-call dein#add('tpope/vim-markdown')
-call dein#add('previm/previm')
-call dein#add('tyru/open-browser.vim')
-call dein#add('jlanzarotta/bufexplorer')
-call dein#add('lambdalisue/fern.vim')
-call dein#add('majutsushi/tagbar')
-call dein#add('mattn/emmet-vim')
-
-call dein#end()
-
-" vimprocだけは最初にインストールしてほしい
-if dein#check_install(['vimproc.vim'])
-  call dein#install(['vimproc.vim'])
-endif
-if dein#check_install()
-  call dein#install()
-endif
+Plug 'airblade/vim-gitgutter'
+Plug 'lambdalisue/fern.vim'
+call plug#end()
 
 "--------j/kによる移動を速くする------------
 nmap j <Plug>(accelerated_jk_gj)
@@ -91,35 +54,6 @@ nmap k <Plug>(accelerated_jk_gk)
 
 "Fernの表示
 nnoremap <silent><C-e> :Fern . -reveal=% -drawer -toggle<CR>
-
-let g:unite_split_rule = 'botright'
-"Uniteの設定
-"grep
-nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer -no-quit -vertical -keep-focus<CR>
-nnoremap <silent> ,G  :<C-u>Unite grep:.:-w -buffer-name=search-buffer -no-quit -vertical -keep-focus<CR>
-nnoremap <silent> ,eg  :<C-u>Unite grep:.:-e -buffer-name=search-buffer -no-quit -vertical -keep-focus<CR>
-" unite grepにhw(highway)を使う
-if executable('hw')
-  let g:unite_source_grep_command = 'hw'
-  let g:unite_source_grep_default_opts = '--no-group --no-color'
-  let g:unite_source_grep_recursive_opt = ''
-endif
-"アウトライン
-nnoremap <silent> ,o :<C-u>Unite -vertical -winwidth=80 -no-quit -keep-focus outline<CR>
-"履歴
-nnoremap <silent> ,, :<C-u>Unite -vertical -winwidth=80 -no-quit -keep-focus -default-action=append history/yank<CR>
-"バッファ
-nnoremap <silent> ,b :<C-u>Unite -vertical -winwidth=80 -no-quit -keep-focus buffer -buffer-name=file<CR>
-"レジスタ
-nnoremap <silent> ,r :<C-u>Unite -vertical -winwidth=80 -no-quit -keep-focus register -buffer-name=register -default-action=append<CR>
-"バッファディレクトリ
-nnoremap <silent> ,bd :<C-u>UniteWithBufferDir -vertical -winwidth=40 -no-quit -keep-focus register -buffer-name=files file<CR>
-
-noremap <Space>g :Gtags
-noremap <Space>l :Gtags -f %<CR>
-noremap <Space>j :GtagsCursor<CR>
-noremap <Space>n :cn<CR>
-noremap <Space>p :cp<CR>
 
 "--------windows ope----------
 nnoremap s <Nop>
@@ -152,62 +86,12 @@ nnoremap sQ :<C-u>bd<CR>
 cnoremap <c-x> <c-r>=expand( '%:p:h')<cr>/
 cnoremap <c-z> <c-r>=expand( '%:p')<cr>
 
-call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
-call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
-call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
-call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
-call submode#map('bufmove', 'n', '', '>', '<C-w>>')
-call submode#map('bufmove', 'n', '', '<', '<C-w><')
-call submode#map('bufmove', 'n', '', '+', '<C-w>+')
-call submode#map('bufmove', 'n', '', '-', '<C-w>-')
-
-"neocomplcache keybind
-"inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
-"inoremap <expr><C-Tab> pumvisible() ? "\<Up>" : "\<C-Tab>"
-
-"PopUpMenuの色設定
-au VimEnter,ColorScheme * highlight Pmenu ctermfg=62
-au VimEnter,ColorScheme * highlight PmenuSel ctermfg=134
-
-"syntax enable
-"set background=dark
 "color scheme change to tokyo-night
 set termguicolors
 let g:tokyonight_style = 'night'
 let g:tokyonight_enable_italic = 1
 colorscheme tokyonight
-"colorscheme solarized
 
-"deoplete.vim
-"let g:deoplete#enable_at_startup = 1
-"call deoplete#custom#source('_', 'matchers', ['matcher_head',
-"\ 'matcher_length'])
-
-"" vim-monster
-"let g:neocomplete#sources#omni#input_patterns = {
-"      \  'ruby': '[^. *\t]\.\w*\|\h\w*::'
-"      \}
-
-filetype plugin indent on
-
-" htmlタグの移動
-:source $VIMRUNTIME/macros/matchit.vim
-
-"新規バッファ
-nnoremap <Silent><C-n> :enew<CR>
-"設定ファイルの編集
-nnoremap <leader>. :tabe ~/.vimrc<CR>
-
-"commadn line window open size
-noremap q: q:<C-w>=
-cnoremap <C-f> <C-f><C-w>=
-
-"Space+P toggles paste mode
-nmap <leader>p :set paste!<BAR>set paste?<CR>
-
-" Switch tab
-nmap <S-Tab> :tabprev<Return>
-nmap <Tab> :tabnext<Return>
 
 "visible tab font etc
 set list
@@ -230,9 +114,6 @@ let g:lightline = {
       \ 'colorscheme': 'jellybeans'
       \ }
 
-let g:user_emmet_settings = {
-\  'variables': {'lang': 'ja'},
-\}
 
 function! AbsolutePath()
   let a = substitute(expand('%:p'), $HOME, '~', '')
@@ -245,4 +126,20 @@ function! AbsolutePath()
   endif
 endfunction
 
-let g:previm_enable_realtime = 1
+"easymotion setting
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap f <Plug>(easymotion-overwin-f2)
+
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
+"test
+nnoremap <C-d> :LspDefinition<CR>
