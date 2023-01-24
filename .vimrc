@@ -143,3 +143,6 @@ map <Leader>k <Plug>(easymotion-k)
 
 "test
 nnoremap <C-d> :LspDefinition<CR>
+
+"fern
+let g:fern#default_hidden=1
