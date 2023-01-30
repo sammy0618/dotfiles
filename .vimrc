@@ -43,6 +43,7 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/fern.vim'
+Plug 'vim-test/vim-test'
 call plug#end()
 
 "--------j/kによる移動を速くする------------
