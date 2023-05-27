@@ -14,6 +14,7 @@ set showtabline=2
 set mouse=a
 set completeopt=menuone,noinsert
 set shortmess+=I
+set belloff=all
 
 let mapleader = "\<Space>"
 
@@ -40,10 +41,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'dylanngo95/react-native-snippet'
 Plug 'will133/vim-dirdiff'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/fern.vim'
 Plug 'vim-test/vim-test'
+
+Plug 'cdelledonne/vim-cmake'
 call plug#end()
 
 "--------j/kによる移動を速くする------------
@@ -147,3 +151,33 @@ nnoremap <C-d> :LspDefinition<CR>
 
 "fern
 let g:fern#default_hidden=1
+
+"vim-test
+let g:test#javascript#jest#file_pattern = '.*test\.js$'
+let test#javascript#jest#executable = 'npx jest'
+"let test#javascript#jest#options = '--reporters jest-vim-reporter'
+let g:test#strategy = 'dispatch'
+
+function! TestErrFmt(errfmt,lines)
+  let temp_errorfomat = &errorformat
+  try
+    let &errorformat = a:errfmt
+    cexpr join(a:lines,"\n")
+    copen
+  catch
+    echo v:exception
+    echo v:throwpoint
+  finally
+    let &errorformat = temp_errorfomat
+  endtry
+endfunction
+
+"vim-test 
+"let g:test#cpp#catch2#runner = "ctest"
+"let g:test#cpp#catch2#relToProject_build_dir = "."
+"let g:test#cpp#catch2#make_command = "make test"
+"let g:test#cpp#catch2#suite_command = "ctest --output-on-failer"
+"let g:test#cpp#catch2#make_command = "ctest --output-on-failer"
+let g:test#runner_commands = ['Catch2']
+"let g:test#cpp#catch2#test_target = "test"
+
